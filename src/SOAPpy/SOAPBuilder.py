@@ -253,25 +253,26 @@ class SOAPBuilder:
         if self.depth < 2:
             return ''
 
-        if not self.ids.has_key(id(obj)):
-            n = self.ids[id(obj)] = self.icounter
-            self.icounter = n + 1
+        #if not self.ids.has_key(id(obj)):
+        n = self.ids[id(obj)] = self.icounter
+        self.icounter = n + 1
 
-            if self.use_refs == 0:
-                return ''
+        if self.use_refs == 0:
+            return ''
 
-            if self.depth == 2:
-                return ' id="i%d"' % n
+        if self.depth == 2:
+            return ' id="i%d"' % n
 
-            self.multirefs.append((obj, tag))
-        else:
-            if self.use_refs == 0:
-                raise RecursionError, "Cannot serialize recursive object"
+        self.multirefs.append((obj, tag))
+        #else:
+        #    if self.use_refs == 0:
+        #        print  {"obj":obj, "tag":tag, "ns_map":ns_map}
+        #        raise RecursionError, "Cannot serialize recursive object"
 
-            n = self.ids[id(obj)]
+        #    n = self.ids[id(obj)]
 
-            if self.multis and self.depth == 2:
-                return ' id="i%d"' % n
+        #    if self.multis and self.depth == 2:
+        #        return ' id="i%d"' % n
 
         self.out.append('<%s href="#i%d"%s/>\n' %
                         (tag, n, self.genroot(ns_map)))
