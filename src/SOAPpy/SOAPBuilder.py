@@ -349,7 +349,7 @@ class SOAPBuilder:
 
     def dump_int(self, obj, tag, typed = 1, ns_map = {}):
         if Config.debug: print "In dump_int."
-        self.out.append(self.dumper(None, 'integer', obj, tag, typed,
+        self.out.append(self.dumper(None, 'int', obj, tag, typed,
                                      ns_map, self.genroot(ns_map)))
 
     def dump_bool(self, obj, tag, typed = 1, ns_map = {}):
